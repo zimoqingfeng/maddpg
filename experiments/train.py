@@ -58,7 +58,7 @@ def modified_model(input, num_outputs, scope, reuse=False, num_units=64, rnn_cel
 
         out = tf.nn.dropout(out, 0.8)  # dropout
         out = layers.fully_connected(out, num_outputs=num_units, activation_fn=tf.nn.relu)
-        out = tf.nn.dropout(out, 0.6)  # dropout
+        out = tf.nn.dropout(out, 0.8)  # dropout
         out = layers.fully_connected(out, num_outputs=num_units, activation_fn=tf.nn.relu)
 
         out = layers.fully_connected(out, num_outputs=num_outputs, activation_fn=None)
