@@ -1,6 +1,6 @@
 # Multi-Agent Deep Deterministic Policy Gradient (MADDPG)
 
-This is the code for implementing the MADDPG algorithm presented in the paper (tested version):
+This is the code for implementing the MADDPG algorithm presented in the paper:
 [Multi-Agent Actor-Critic for Mixed Cooperative-Competitive Environments](https://arxiv.org/pdf/1706.02275.pdf).
 It is configured to be run in conjunction with environments from the
 [Multi-Agent Particle Environments (MPE)](https://github.com/openai/multiagent-particle-envs).
