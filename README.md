@@ -7,6 +7,9 @@ It is configured to be run in conjunction with environments from the
 Note: this codebase has been restructured since the original paper, and the results may
 vary slightly from those reported in the paper.
 
+## Not finfished (emmm...)
+Combined with the MAML.
+
 ## Installation
 
 - To install, `cd` into the root directory and type `pip install -e .`
