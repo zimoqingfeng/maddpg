@@ -26,7 +26,7 @@ def make_update_exp(vals, target_vals):
     expression = tf.group(*expression)
     return U.function([], [], updates=[expression])
 
-# Policy network
+# Policy network: Agents with Policy Ensembles
 def p_train(make_obs_ph_n, act_space_n, p_index, p_func, q_func, optimizer, grad_norm_clipping=None, local_q_func=False, num_units=64, scope="trainer", reuse=None):
     with tf.variable_scope(scope, reuse=reuse):
         # create distribtuions
@@ -74,12 +74,8 @@ def p_train(make_obs_ph_n, act_space_n, p_index, p_func, q_func, optimizer, grad
 
         return act, train, update_target_p, {'p_values': p_values, 'target_act': target_act}
 
-# Q network
-def q_train(make_obs_ph_n: object, act_space_n: object, q_index: object, q_func: object, optimizer: object, grad_norm_clipping: object = None,
-            local_q_func: object = False,
-            scope: object = "trainer",
-            reuse: object = None,
-            num_units: object = 64) -> object:
+# Q network: Inferring Policies of Other Agents
+def q_train(make_obs_ph_n, act_space_n, q_index, q_func, optimizer, grad_norm_clipping=None, local_q_func=False, scope="trainer", reuse=None, num_units=64):
     with tf.variable_scope(scope, reuse=reuse):
         # create distribtuions
         act_pdtype_n = [make_pdtype(act_space) for act_space in act_space_n]
@@ -91,7 +87,7 @@ def q_train(make_obs_ph_n: object, act_space_n: object, q_index: object, q_func:
 
         q_input = tf.concat(obs_ph_n + act_ph_n, 1)
         if local_q_func:
-            q_input = tf.concat([obs_ph_n[q_index], act_ph_n[q_index]], 1)
+            q_input = tf.concat([obs_ph_n[q_index], act_ph_n[q_index]], 1) # DDPG just owns its [local] information
         q = q_func(q_input, 1, scope="q_func", num_units=num_units)[:,0]
         q_func_vars = U.scope_vars(U.absolute_scope_name("q_func"))
 
